@@ -15,10 +15,10 @@ module.exports = {
 
     //  七牛云配置
     qiniu_config:{
-        server : "",
-        accessKey:'',
-        secretKey:'',
-        bucket: '',
+        server : "oz1y7s5ij.bkt.clouddn.com",
+        accessKey:'0c6pz4G0HTKtnoC9y8FeGXbJFQUSp-2nuhX4K90M',
+        secretKey:'BPeRE65Ax1cjSyzc5SSRyKTaj5QGHG2i8kPOi6Ki',
+        bucket: 'timewait',
         origin: ''
     },
 
