@@ -197,7 +197,7 @@ router.put('/like/:id', function (req, res) {
 
     const id = req.params.id;
 
-    const ip = req.ip;
+    const ip = req.realIp;
 
     //  寻找文章是否存在
     Article.findById(id).then(function (result) {

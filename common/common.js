@@ -6,6 +6,7 @@
 
 //  文章图片表ORM
 const ArticlePicture = require("../models/articlePicture");
+var os = require('os');
 
 /**
  * 保存图片信息到文章图片表
@@ -78,8 +79,42 @@ function unifiedResult(res, success, detailMsg = "", data = {}) {
     res.json(result);
 }
 
+/**
+ * 获取真实客户端IP
+ */
+function getRealIp(){
+
+    var ifaces = os.networkInterfaces();
+
+    var answerIp = "";
+
+    Object.keys(ifaces).forEach(function (ifname) {
+        
+        var alias = 0;
+
+        ifaces[ifname].forEach(function (iface) {
+            if ('IPv4' !== iface.family || iface.internal !== false) {
+                //  localhost去掉
+                return;
+            }
+
+            if (alias >= 1) {
+                console.log(ifname + ':' + alias, iface.address);
+            } else {
+                console.log(ifname, iface.address);
+                answerIp = iface.address;
+            }
+            ++alias;
+        });
+    });
+
+    return answerIp;
+
+}
+
 module.exports = {
     unifiedResult,
     saveArticlePicture,
-    deletArticlePicture
+    deletArticlePicture,
+    getRealIp
 };

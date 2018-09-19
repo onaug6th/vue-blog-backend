@@ -16,7 +16,7 @@ router.post('/', function (req, res) {
     const data = {
         'articleId': body.articleId,
         'floor' : "",
-        'ip': req.ip,
+        'ip': req.realIp,
         'name': body.name,
         'email': body.email,
         'avatar': body.avatar,
@@ -182,7 +182,7 @@ router.put('/like/:id', function (req, res) {
 
     const id = req.params.id;
 
-    const ip = req.ip;
+    const ip = req.realIp;
 
     Reply.findById(id).then( function(result){
         //  初始值为空字符串

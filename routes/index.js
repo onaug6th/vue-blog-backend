@@ -1,5 +1,5 @@
-const common = require("../common/common");
-const unifiedResult = common.unifiedResult;
+const { unifiedResult, getRealIp } = require("../common/common");
+var os = require('os');
 
 /**
  * 全局路由配置文件
@@ -14,6 +14,8 @@ module.exports = function (app) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
         res.header("Access-Control-Allow-Headers", "*");
+        
+        req.realIp = getRealIp();
 
         // if (!req.headers.token) {
         //     unifiedResult(res, false, "未经过身份验证不允许调用接口");

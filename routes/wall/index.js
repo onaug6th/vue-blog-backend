@@ -18,7 +18,7 @@ router.post('/', function (req, res) {
         'name' : body.name,
         'intro' : body.intro,
         'content' : body.content,
-        'ip': req.ip
+        'ip': req.realIp
     };
 
     Wall.build(data)
