@@ -202,7 +202,7 @@ router.put('/like/:id', function (req, res) {
     //  寻找文章是否存在
     Article.findById(id).then(function (result) {
         //  初始值为空字符串
-        const likeArr = result.like.length ? result.like.split(",") : [];
+        const likeArr = result.like.length > 1 ? result.like.split(",") : [];
 
         //  如果点过赞
         if (likeArr.includes(ip) || likeArr.indexOf(ip) >= 0) {
