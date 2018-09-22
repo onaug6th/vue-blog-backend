@@ -1,6 +1,6 @@
 # onaug6th-backEnd
 
-前端代码 frontend code : https://github.com/onaug6th/onaug6th-frontEnd
+前端代码 frontend code : https://github.com/onaug6th/onaug6th
 
 angular2 项目（time-wait）后端
 
