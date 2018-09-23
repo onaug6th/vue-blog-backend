@@ -2,7 +2,7 @@
 
 前端代码 frontend code : https://github.com/onaug6th/onaug6th
 
-angular2 项目（time-wait）后端
+vue 项目（onaug6th）后端
 
 数据库 : mysql
 
