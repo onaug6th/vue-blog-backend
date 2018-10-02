@@ -14,8 +14,8 @@ module.exports = function (app) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
         res.header("Access-Control-Allow-Headers", "*");
-        
-        req.realIp = getRealIp();
+
+        req.realIp = req.headers["x-real-ip"] || req.headers["x-forwarded-for"];
 
         // if (!req.headers.token) {
         //     unifiedResult(res, false, "未经过身份验证不允许调用接口");
