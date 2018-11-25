@@ -33,7 +33,7 @@ module.exports = function (app) {
 
         if (req.method == "OPTIONS"){
             next();
-        }else if ( validatePath.indexOf(req.path) > 0 && req.headers.token !== "tempToken") {
+        }else if ( (validatePath.map(item => req.path.indexOf(item)).length > 0) && req.headers.token !== "tempToken") {
             unifiedResult(res, false, "未经过身份验证不允许调用接口");
         } else {
             next();
