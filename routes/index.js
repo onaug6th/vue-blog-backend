@@ -26,8 +26,14 @@ module.exports = function (app) {
     });
 
     app.use(function(req, res, next){
-        
-        if (req.method != "OPTIONS" && req.headers.token !== "tempToken") {
+
+        const validatePath = [
+            '/api/user', '/api/article', '/api/articleType', '/api/articlePicture', '/api/reply', '/api/insideReply', '/api/wall', '/api/upload'
+        ];
+
+        if (req.method == "OPTIONS"){
+            next();
+        }else if ( validatePath.indexOf(req.path) > 0 && req.headers.token !== "tempToken") {
             unifiedResult(res, false, "未经过身份验证不允许调用接口");
         } else {
             next();
