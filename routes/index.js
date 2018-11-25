@@ -15,14 +15,24 @@ module.exports = function (app) {
         res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
         res.header("Access-Control-Allow-Headers", "*");
 
-        req.realIp = req.headers["x-real-ip"] || req.headers["x-forwarded-for"];
+        req.realIp = req.headers["x-real-ip"] || req.headers["x-forwarded-for"] || req.ip;
 
-        // if (!req.headers.token) {
-        //     unifiedResult(res, false, "未经过身份验证不允许调用接口");
-        // } else {
-        //     next();
-        // }
+        const exclude = req.body.exclude;
+
+        exclude && exclude.forEach((item, index)=>{
+            delete req.body[item];
+        });
         next();
+    });
+
+    app.use(function(req, res, next){
+        
+        if (req.method != "OPTIONS" && req.headers.token !== "tempToken") {
+            unifiedResult(res, false, "未经过身份验证不允许调用接口");
+        } else {
+            next();
+        }
+        
     });
 
     //  用户接口
