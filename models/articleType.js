@@ -21,7 +21,6 @@ var ArticleType = mysql.define('articleType', {
     createdAt: {
         type: Sequelize.DATE,
         get() {
-            const createdAt = this.getDataValue('createdAt');
             return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
         }
     },

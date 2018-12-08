@@ -38,7 +38,6 @@ var ArticlePicture = mysql.define('articlePicture', {
     createdAt: {
         type: Sequelize.DATE,
         get() {
-            const createdAt = this.getDataValue('createdAt');
             return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
         }
     },
