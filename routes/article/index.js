@@ -152,11 +152,11 @@ router.post("/list", function (req, res) {
     body.exclude = body.exclude || [];
 
     //  type为default时，只拉取展示的文章，且将展示字段隐藏
-    ( type == "default" ) && ( where.show = "1", body.exclude.push("show") );
+    (type == "default") && (where.show = "1", body.exclude.push("show"));
 
     const query = {
         //  根据时间倒叙查询
-        order : "createdAt DESC",
+        order: "createdAt DESC",
         //  查询条件
         where,
         //  查询的偏移量 “开始的数据索引，比如当page=2 时offset=10 ，而pagesize我们定义为10，则现在为索引为10，也就是从第11条开始返回数据条目”
@@ -181,7 +181,7 @@ router.post("/list", function (req, res) {
         } else {
             unifiedResult(res, false, "暂无文章", {
                 ...result,
-                totalPages : 0
+                totalPages: 0
             });
         }
     }).catch((err) => {
@@ -227,6 +227,34 @@ router.put('/like/:id', function (req, res) {
 
         unifiedResult(res, false, "找不到这篇文章，点赞失败了");
     });
+
+});
+
+/**
+ * 获取对应id的文章数量
+ * @api {get} api/article/artcleAmount/:id
+ */
+router.get('/artcleAmount/:id', function (req, res) {
+
+    const id = req.params.id;
+
+    const condition = {
+        'where': {
+            'id': id
+        }
+    }
+
+    id && (condition['where'] = { 'id' : id });
+
+    Article.findAll(condition)
+        .then((result) => {
+            unifiedResult(res, true, "获取文章数量成功", {
+                id : id,
+                length: result.length
+            });
+        }).catch((err) => {
+            unifiedResult(res, false, "获取文章信息时失败了");
+        });
 
 });
 
