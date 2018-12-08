@@ -16,7 +16,9 @@ router.post('/', function (req, res) {
     const body = req.body;
 
     const data = {
-        'name': body.name
+        'name': body.name,
+        'intro': body.intro,
+        'bgUrl': body.bgUrl
     };
 
     ArticleType.build(data)

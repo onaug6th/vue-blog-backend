@@ -18,6 +18,16 @@ var ArticleType = mysql.define('articleType', {
         type: Sequelize.STRING,
         defaultValue: ""
     },
+    //  介绍
+    intro: {
+        type: Sequelize.STRING,
+        defaultValue: ""
+    },
+    //  背景图片
+    bgUrl: {
+        type: Sequelize.STRING,
+        defaultValue: ""
+    },
     createdAt: {
         type: Sequelize.DATE,
         get() {
