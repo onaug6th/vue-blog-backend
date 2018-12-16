@@ -47,6 +47,8 @@ module.exports = function (app) {
     app.use('/api/article', require('./article/index.js'));
     //  文章类型接口
     app.use('/api/articleType', require('./articleType/index.js'));
+    //  文章标签接口
+    app.use('/api/tag', require('./tag/index.js'));
     //  文章图片接口
     app.use('/api/articlePicture', require('./articlePicture/index.js'));
     //  文章回复接口
