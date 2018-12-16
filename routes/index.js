@@ -1,5 +1,4 @@
-const { unifiedResult, getRealIp } = require("../common/common");
-var os = require('os');
+const { unifiedResult } = require("../common/common");
 
 /**
  * 全局路由配置文件
