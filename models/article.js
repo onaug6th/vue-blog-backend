@@ -13,8 +13,13 @@ const Article = mysql.define('article', {
         primaryKey: true,
         autoIncrement: true
     },
-    //  文章类型
+    //  文章所属类型
     type: {
+        type: Sequelize.STRING,
+        defaultValue: ""
+    },
+    //  文章标签
+    tag: {
         type: Sequelize.STRING,
         defaultValue: ""
     },
