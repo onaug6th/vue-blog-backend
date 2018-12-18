@@ -92,6 +92,8 @@ router.get('/:id', function (req, res) {
 
     const id = req.params.id;
 
+    req.query.type = req.query.type || "defalut";
+
     Article.findAll({
         'where': {
             'id': id
@@ -99,8 +101,11 @@ router.get('/:id', function (req, res) {
     })
         .then((result) => {
             if (result.length > 0) {
-                //  点赞在数据库中存的是数组字符串
-                result[0].like = result[0].like === "" ? 0 : result[0].like.split(",").length;
+
+                if(req.query.type != "admin"){
+                    //  点赞在数据库中存的是数组字符串
+                    result[0].like = (result[0].like === "" ? 0 : result[0].like.split(",").length);
+                }
 
                 unifiedResult(res, true, "获取文章信息成功", result);
             } else {
