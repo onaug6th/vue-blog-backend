@@ -101,10 +101,12 @@ router.get('/:id', function (req, res) {
     })
         .then((result) => {
             if (result.length > 0) {
-
+                //  非管理员形式调用时
                 if(req.query.type != "admin"){
                     //  点赞在数据库中存的是数组字符串
                     result[0].like = (result[0].like === "" ? 0 : result[0].like.split(",").length);
+                    //  移除show字段
+                    delete result[0].show;
                 }
 
                 unifiedResult(res, true, "获取文章信息成功", result);
