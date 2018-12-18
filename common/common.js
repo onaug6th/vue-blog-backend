@@ -74,7 +74,7 @@ function unifiedResult(res, success, detailMsg = "", data = {}) {
 
     !success && (result["code"] = 1, result["msg"] = "error");
 
-    data.length === 1 && (result.data = data[0]);
+    (Array.isArray(data) && data.length === 1) && (result.data = data[0]);
 
     res.json(result);
 }
