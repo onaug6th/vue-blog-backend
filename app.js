@@ -36,7 +36,7 @@ sequelize.sync({
     force: false
 })
     .then(function () {
-        serverOpen()
+        serverOpen();
     })
     .catch(function (err) {
         console.log('连不上数据库了，检查一下');

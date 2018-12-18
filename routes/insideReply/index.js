@@ -150,8 +150,8 @@ router.post("/list", function (req, res) {
 
     InsideReply.findAndCountAll(query).then(function (result) {
         if (result.count > 0) {
-            result.rows.forEach((item, index)=>{
-                item.like = item.like === "" ? 0 : item.like.split(",").length;
+            result.rows.forEach((item) =>{
+                item.like = (item.like === "" ? 0 : item.like.split(",").length);
             });
             unifiedResult(res, true, "获取楼中楼回复列表成功", {
                 ...result,

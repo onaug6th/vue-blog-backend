@@ -67,6 +67,9 @@ router.put('/:id', function (req, res) {
 
     const { exclude, ...body } = req.body;
 
+    //  like字段，为0不保存
+    (req.body.like == 0) && (delete req.body.like);
+
     //  排除不需要更新的字段
     Article.update(body, {
         'where': { 'id': id },
@@ -96,7 +99,6 @@ router.get('/:id', function (req, res) {
     })
         .then((result) => {
             if (result.length > 0) {
-                //  让返回的数据 “read” 自增
                 //  点赞在数据库中存的是数组字符串
                 result[0].like = result[0].like === "" ? 0 : result[0].like.split(",").length;
 
@@ -111,7 +113,7 @@ router.get('/:id', function (req, res) {
 });
 
 /**
- * 根据id自增指定文章阅读数
+ * 根据id寻找文章，自增阅读数
  * @api {put} api/article/read/:id
  */
 router.put('/read/:id', function (req, res) {
@@ -127,7 +129,6 @@ router.put('/read/:id', function (req, res) {
             if (result.length > 0) {
                 //  让返回的数据 “read” 自增
                 result[0].increment("read").then((result) => {
-
                     unifiedResult(res, true, "文章阅读数更新完毕", result);
                 });
             } else {
@@ -151,7 +152,7 @@ router.post("/list", function (req, res) {
     const where = body.where || {};
     body.exclude = body.exclude || [];
 
-    //  type为default时，只拉取展示的文章，且将展示字段隐藏
+    //  type为default时，只拉取展示的文章，且将show字段隐藏
     (type == "default") && (where.show = "1", body.exclude.push("show"));
 
     const query = {
@@ -159,7 +160,7 @@ router.post("/list", function (req, res) {
         order: "createdAt DESC",
         //  查询条件
         where,
-        //  查询的偏移量 “开始的数据索引，比如当page=2 时offset=10 ，而pagesize我们定义为10，则现在为索引为10，也就是从第11条开始返回数据条目”
+        //  查询的偏移量 “开始的数据索引，比如当page=2 时offset=10，而pagesize我们定义为10，则现在为索引为10，也就是从第11条开始返回数据条目”
         offset: (page - 1) * pageSize,
         //  每页限制返回的数据条数
         limit: pageSize,
@@ -171,8 +172,9 @@ router.post("/list", function (req, res) {
 
     Article.findAndCountAll(query).then(function (result) {
         if (result.count > 0) {
-            result.rows.forEach((item, index) => {
-                item.like = item.like === "" ? 0 : item.like.split(",").length;
+            //  
+            result.rows.forEach((item) => {
+                item.like = (item.like === "" ? 0 : item.like.split(",").length);
             });
             unifiedResult(res, true, "获取文章列表成功", {
                 ...result,
@@ -231,25 +233,19 @@ router.put('/like/:id', function (req, res) {
 });
 
 /**
- * 获取对应id的文章数量
- * @api {get} api/article/artcleAmount/:id
+ * 根据参数获取对应的文章数量
+ * @api {post} api/article/artcleAmount
  */
-router.get('/artcleAmount/:id', function (req, res) {
-
-    const id = req.params.id;
+router.post('/artcleAmount', function (req, res) {
 
     const condition = {
-        'where': {
-            'id': id
-        }
+        'where': req.body
     }
-
-    id && (condition['where'] = { 'id' : id });
 
     Article.findAll(condition)
         .then((result) => {
             unifiedResult(res, true, "获取文章数量成功", {
-                id : id,
+                where: condition,
                 length: result.length
             });
         }).catch((err) => {
