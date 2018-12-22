@@ -57,6 +57,11 @@ const Article = mysql.define('article', {
         type: Sequelize.STRING,
         defaultValue: "1"
     },
+    //  首页展示
+    homeShow: {
+        type: Sequelize.STRING,
+        defaultValue: "0"
+    },
     createdAt: {
         type: Sequelize.DATE,
         get() {
