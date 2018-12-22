@@ -160,7 +160,7 @@ router.post("/list", function (req, res) {
     body.exclude = body.exclude || [];
 
     //  type为default时，只拉取展示的文章，且将show字段隐藏
-    (type == "default") && (where.show = "1", body.exclude.push("show"));
+    (type == "default") && (where.show = "1", body.exclude = ["show", "homeShow", ...body.exclude]);
 
     const query = {
         //  根据时间倒叙查询
