@@ -15,6 +15,7 @@ router.post('/', function (req, res) {
 
     const data = {
         'type': body.type,
+        'tag': body.tag,
         'title': body.title,
         'intro': body.intro,
         'content': body.content,
