@@ -98,6 +98,9 @@ router.get('/:id', function (req, res) {
     Article.findAll({
         'where': {
             'id': id
+        },
+        'attributes': {
+            exclude: req.query.type == "admin" ? [] : ['show', 'homeShow']
         }
     })
         .then((result) => {
@@ -106,8 +109,6 @@ router.get('/:id', function (req, res) {
                 if(req.query.type != "admin"){
                     //  点赞在数据库中存的是数组字符串
                     result[0].like = (result[0].like === "" ? 0 : result[0].like.split(",").length);
-                    //  移除show字段
-                    delete result[0].show;
                 }
 
                 unifiedResult(res, true, "获取文章信息成功", result);
