@@ -200,7 +200,7 @@ router.put('/like/:id', function (req, res) {
             {'fields': ['like']}
         ).then((success)=>{
 
-            unifiedResult(res, true, "点赞成功");
+            unifiedResult(res, true, "点赞成功", success);
         }).catch((err)=>{
 
             unifiedResult(res, false, "更新点赞数量时失败了");
