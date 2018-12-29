@@ -47,7 +47,7 @@ router.delete('/', function (req, res) {
             if (result > 0) {
                 unifiedResult(res, true, "删除文章类型成功");
             } else {
-                unifiedResult(res, false, "没有找到这个文章");
+                unifiedResult(res, false, "没有找到这个文章类型");
             }
         }).catch((err) => {
             console.info(err);
