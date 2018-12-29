@@ -243,9 +243,9 @@ router.put('/like/:id', function (req, res) {
 
 /**
  * 根据参数获取对应的文章数量
- * @api {post} api/article/artcleAmount
+ * @api {post} api/article/articleAmount
  */
-router.post('/artcleAmount', function (req, res) {
+router.post('/articleAmount', function (req, res) {
 
     const condition = {
         'where': req.body
