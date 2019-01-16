@@ -17,7 +17,7 @@ router.post('/', function (req, res) {
     const data = {
         'avatar' : body.avatar,
         'articleId': body.articleId,
-        'floorId' : body.floorId,
+        'floor' : body.floor,
         'replyId' : body.replyId,
         'replyName' : body.replyName,
         'ip': req.realIp,
@@ -130,7 +130,7 @@ router.post("/list", function (req, res) {
     //  type为default时，只拉取展示的回复，和不返回邮箱，ip等信息。
     ( type == "default" ) && (
         where.show = "1",
-        where.floorId = body.floorId,
+        where.floor = body.floor,
         where.articleId = body.articleId,
         body.exclude.push('show', 'ip' , 'email')
     );

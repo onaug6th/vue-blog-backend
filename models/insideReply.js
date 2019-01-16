@@ -19,7 +19,7 @@ const Reply = mysql.define('insideReplies', {
         defaultValue: ""
     },
     //  这条回复属于哪个楼
-    floorId: {
+    floor: {
         type: Sequelize.STRING,
         defaultValue: ""
     },
