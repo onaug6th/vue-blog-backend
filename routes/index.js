@@ -27,14 +27,14 @@ module.exports = function (app) {
     app.use(function(req, res, next){
 
         const validatePath = [
-            '/api/user', '/api/article', '/api/articleType', '/api/articlePicture', '/api/reply', '/api/insideReply', '/api/wall', '/api/upload'
+            '/api/user', '/api/article', '/api/articleType', '/api/tag', '/api/articlePicture', '/api/reply', '/api/insideReply', '/api/wall', '/api/upload'
         ];
 
         if (req.method == "OPTIONS"){
             next();
-        }else if ( (validatePath.filter(item => req.path.indexOf(item) !== -1 ).length > 0) && req.headers.token !== "tempToken") {
+        }else if((validatePath.filter(item => req.path.indexOf(item) !== -1 ).length > 0) && req.headers.token !== "tempToken") {
             unifiedResult(res, false, "未经过身份验证不允许调用接口");
-        } else {
+        }else {
             next();
         }
         

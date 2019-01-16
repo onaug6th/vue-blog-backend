@@ -15,6 +15,7 @@ router.post('/', function (req, res) {
 
     const data = {
         'type': body.type,
+        'tag': body.tag,
         'title': body.title,
         'intro': body.intro,
         'content': body.content,
@@ -97,6 +98,9 @@ router.get('/:id', function (req, res) {
     Article.findAll({
         'where': {
             'id': id
+        },
+        'attributes': {
+            exclude: req.query.type == "admin" ? [] : ['show', 'homeShow']
         }
     })
         .then((result) => {
@@ -105,8 +109,6 @@ router.get('/:id', function (req, res) {
                 if(req.query.type != "admin"){
                     //  点赞在数据库中存的是数组字符串
                     result[0].like = (result[0].like === "" ? 0 : result[0].like.split(",").length);
-                    //  移除show字段
-                    delete result[0].show;
                 }
 
                 unifiedResult(res, true, "获取文章信息成功", result);
@@ -226,7 +228,7 @@ router.put('/like/:id', function (req, res) {
             { 'fields': ['like'] }
         ).then((success) => {
 
-            unifiedResult(res, true, "点赞成功", success, success);
+            unifiedResult(res, true, "点赞成功", success);
         }).catch((err) => {
 
             unifiedResult(res, false, "更新点赞数量时失败了");
@@ -241,9 +243,9 @@ router.put('/like/:id', function (req, res) {
 
 /**
  * 根据参数获取对应的文章数量
- * @api {post} api/article/artcleAmount
+ * @api {post} api/article/articleAmount
  */
-router.post('/artcleAmount', function (req, res) {
+router.post('/articleAmount', function (req, res) {
 
     const condition = {
         'where': req.body
