@@ -20,6 +20,8 @@ router.post('/', function (req, res) {
         'intro': body.intro,
         'content': body.content,
         'read': body.read,
+        'show': body.show,
+        'homeShow': body.homeShow,
         'like': body.like
     };
 
