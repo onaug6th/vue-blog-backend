@@ -10,6 +10,9 @@ const app = express();
 const routes = require('./routes');
 //  数据库
 const sequelize = require('./mysql/index');
+//  使用跨域模块
+const cors = require('cors');
+app.use(cors());
 
 //  使用请求题解析模块
 app.use(bodyParser.json());
