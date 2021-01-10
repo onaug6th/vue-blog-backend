@@ -1,8 +1,8 @@
-# onaug6th-backEnd
+# vue-blog-backEnd
 
-前端代码 frontend code : https://github.com/onaug6th/onaug6th
+前端代码 frontend code : https://github.com/onaug6th/vue-blog
 
-vue 项目（onaug6th）后端
+vue 项目（vue-blog）后端
 
 数据库 : mysql
 
@@ -11,9 +11,9 @@ vue 项目（onaug6th）后端
 ## 使用
 
 ```
-git clone https://github.com/onaug6th/onaug6th-backend
+git clone https://github.com/onaug6th/vue-blog-backend
 
-cd onaug6th-backend
+cd vue-blog-backend
 
 npm install
 
